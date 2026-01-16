@@ -68,7 +68,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit-plan/{id}', [AdminController::class, 'editPlanForm'])->name('admin.edit-plan');
     Route::put('/edit-plan/{id}', [AdminController::class, 'editPlan'])->name('admin.update-plan');
     Route::delete('/delete-plan/{id}', [AdminController::class, 'deletePlan'])->name('admin.delete-plan');
-    Route::post('/quote/assign/{id}', [AdminController::class, 'assignQuote'])->name('quote.assign');
+    Route::post('/quote/assign/{id}', [AdminController::class, 'assignQuote'])->name('admin.quote.assign');
+
 });
 
 // ===== COMPARISON ===== //
