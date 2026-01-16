@@ -1,42 +1,68 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Hero Section -->
+
+<!-- =======================
+     HERO SECTION
+======================== -->
 <div class="hero-section">
     <div class="hero-content">
         <h1>Welcome to InsuranceWise</h1>
-        <p>Your personalized insurance insight dashboard</p>
-        <a href="{{ route('recommendationform') }}" class="btn btn-lg">Get Personalized Recommendations</a>
+        <p>YOUR PERSONALIZED INSURANCE INSIGHT DASHBOARD</p>
+        <a href="{{ route('recommendationform') }}" class="btn">
+            Get Personalized Recommendations
+        </a>
     </div>
 </div>
 
-<!-- Categories -->
-<div id="category-section" class="section section-gray text-center py-5">
+<!-- =======================
+     CATEGORY SECTION
+======================== -->
+<section id="category-section" class="section-gray text-center">
     <div class="container">
-        <h2>What product or service are you looking for?</h2>
-        <div class="row">
-            @foreach(['medical' => 'Medical Insurance', 'critical' => 'Critical Illness Insurance', 'life' => 'Life Insurance'] as $key => $label)
-            <div class="col-md-4">
-                <div class="card card-stats shadow-sm">
-                    <a href="{{ route('categories.view', ['category' => $key]) }}" class="stretched-link text-decoration-none text-dark">
-                        <div class="content text-center">
-                            <p class="category">{{ $label }}</p>
-                            <h3 class="title">{{ $planCounts[$key] ?? 0 }}</h3>
+        <h2 class="mb-5" style="font-family: 'Cambo', serif;">
+            What product or service are you looking for?
+        </h2>
+
+        <div class="row justify-content-center">
+            @foreach([
+                'medical' => 'Medical Insurance',
+                'critical' => 'Critical Illness Insurance',
+                'life' => 'Life Insurance'
+            ] as $key => $label)
+
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card text-center">
+                        <a href="{{ route('categories.view', ['category' => $key]) }}"
+                           class="stretched-link text-decoration-none text-dark">
+                        </a>
+
+                        <div class="category">
+                            {{ $label }}
                         </div>
-                    </a>
+
+                        <div class="title">
+                            {{ $planCounts[$key] ?? 0 }}
+                        </div>
+                    </div>
                 </div>
-            </div>
+
             @endforeach
         </div>
     </div>
-</div>
+</section>
 
-<!-- Get Quote Section -->
-<div id="get-quote-section" class="hero-section my-5">
-    <div class="hero-content">
+<!-- =======================
+     GET QUOTE SECTION
+======================== -->
+<section id="get-quote-section" class="quote-section">
+    <div class="quote-content">
         <h2>Do you still feel confused?</h2>
         <p>Get a quote now. We are ready to help you.</p>
-        <a href="{{ url('/quote-request') }}" class="btn">Get Quote</a>
+        <a href="{{ url('/quote-request') }}" class="btn">
+            Get Quote
+        </a>
     </div>
-</div>
+</section>
+
 @endsection
