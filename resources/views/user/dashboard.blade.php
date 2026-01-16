@@ -4,9 +4,10 @@
 
 <!-- Header Section -->
 <div class="section section-header">
-  <div class="parallax filter filter-color-black hero-section">
+  <div class="parallax filter filter-color-black hero-section" 
+       style="background-image: url('{{ secure_asset('image/dashboard.jpeg') }}');">
     <div class="container">
-      <div class="content">
+      <div class="content hero-content">
         <h1 class="title-modern text-center">Welcome to InsuranceWise</h1>
         <p class="text-center text-light">Your personalized insurance insight dashboard</p>
         <div class="text-center">
@@ -25,6 +26,7 @@
     <h2 class="section-title">What product or service are you looking for?</h2>
     <div class="row justify-content-center">
 
+      <!-- Medical Insurance -->
       <div class="col-md-3">
         <div class="card card-stats">
           <a href="{{ route('categories.view', ['category' => 'medical']) }}" class="stretched-link text-decoration-none text-dark">
@@ -36,6 +38,7 @@
         </div>
       </div>
 
+      <!-- Critical Illness Insurance -->
       <div class="col-md-3">
         <div class="card card-stats">
           <a href="{{ route('categories.view', ['category' => 'critical']) }}" class="stretched-link text-decoration-none text-dark">
@@ -47,6 +50,7 @@
         </div>
       </div>
 
+      <!-- Life Insurance -->
       <div class="col-md-3">
         <div class="card card-stats">
           <a href="{{ route('categories.view', ['category' => 'life']) }}" class="stretched-link text-decoration-none text-dark">
@@ -73,24 +77,24 @@
 
 <!-- Smooth scroll JS -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const browsePlansBtn = document.getElementById("browsePlansBtn");
-    const getQuoteBtn = document.getElementById("getQuoteBtn");
+document.addEventListener("DOMContentLoaded", function() {
+  const browsePlansBtn = document.getElementById("browsePlansBtn");
+  const getQuoteBtn = document.getElementById("getQuoteBtn");
 
-    if(browsePlansBtn) {
-      browsePlansBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        document.querySelector("#category-section").scrollIntoView({ behavior: 'smooth' });
-      });
-    }
+  if(browsePlansBtn) {
+    browsePlansBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelector("#category-section").scrollIntoView({ behavior: 'smooth' });
+    });
+  }
 
-    if(getQuoteBtn) {
-      getQuoteBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        document.querySelector("#get-quote-section").scrollIntoView({ behavior: 'smooth' });
-      });
-    }
-  });
+  if(getQuoteBtn) {
+    getQuoteBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelector("#get-quote-section").scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+});
 </script>
 
 @endsection
