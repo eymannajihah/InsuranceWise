@@ -26,7 +26,7 @@ COPY . .
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Set proper permissions
+# Set permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Clear caches
@@ -37,5 +37,5 @@ RUN php artisan view:clear
 # Expose port 80
 EXPOSE 80
 
-# Apache will start automatically (no need for artisan serve)
+# Start Apache (production)
 CMD ["apache2-foreground"]
