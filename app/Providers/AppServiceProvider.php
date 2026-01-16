@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Database;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,11 +16,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // Register Firebase Database as a singleton
         $this->app->singleton(Database::class, function ($app) {
-           $factory = (new Factory)
+            $factory = (new Factory)
                 ->withServiceAccount(config('firebase.credentials.file'))
                 ->withDatabaseUri(config('firebase.database.url'));
 
-            
             return $factory->createDatabase();
         });
     }
@@ -29,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Force HTTPS in production to fix mixed content issues
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
