@@ -1,100 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InsuranceWise</title>
-
-  <!-- Bootstrap CSS (HTTPS) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Cambo|Poppins:400,600&display=swap" rel="stylesheet">
-
-  <style>
-    body { font-family: 'Poppins', sans-serif; padding-top: 70px; }
-
-    /* Navbar */
-    .navbar { min-height: 60px; padding: 5px 0; background-color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .navbar-brand { font-size: 20px; padding: 10px 15px; }
-    .nav-link { font-size: 14px; cursor: pointer; }
-
-    /* Hero Section */
-    .hero-section {
-      background-size: cover;
-      background-position: center;
-      color: white;
-      text-align: center;
-      padding: 150px 20px;
-      position: relative;
-    }
-    .hero-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .hero-content .btn {
-      background-color: #ff6f61;
-      color: #fff;
-      border: none;
-      padding: 15px 35px;
-      font-size: 16px;
-      border-radius: 6px;
-    }
-
-    /* Cards Section */
-    .card-hover:hover { transform: scale(1.05); transition: transform 0.2s; }
-    .card-title { font-size: 42px; }
-    .card-category { font-size: 18px; font-weight: 600; }
-
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="font-sans bg-gray-50">
 
-@php
-  $user = Session::get('firebase_user');
-  $isAdmin = $user && ($user['role'] ?? '') === 'admin';
-@endphp
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center p-6 bg-white shadow-md">
+    <div class="text-2xl font-semibold text-gray-800">InsuranceWise</div>
+    <ul class="flex gap-6 text-gray-600">
+      <li><a href="#" class="hover:text-gray-900">Get Recommendation</a></li>
+      <li><a href="#" class="hover:text-gray-900">Browse Plan</a></li>
+      <li><a href="#" class="hover:text-gray-900">Get Quote</a></li>
+      <li><a href="#" class="hover:text-gray-900">Logout</a></li>
+    </ul>
+  </nav>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="{{ $isAdmin ? route('admin.dashboard') : route('dashboard') }}">InsuranceWise</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        @if($isAdmin)
-          <li class="nav-item"><a class="nav-link" href="{{ route('quote.assignment') }}">Quote Requests</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('admin.manage-plans') }}">Manage Plans</a></li>
-        @else
-          <li class="nav-item"><a class="nav-link" href="{{ route('recommendationform') }}">Get Recommendation</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}#category-section">Browse Plan</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url('/quote-request') }}">Get Quote</a></li>
-        @endif
-        <li class="nav-item">
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">@csrf</form>
-          <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-        </li>
-      </ul>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-r from-pink-100 to-pink-200 text-center py-32">
+    <h1 class="text-5xl font-bold text-gray-800 mb-4">Welcome to InsuranceWise</h1>
+    <p class="text-gray-600 uppercase tracking-wide mb-8">Your personalized insurance insight dashboard</p>
+    <a href="#dashboard" class="px-6 py-3 border border-pink-400 text-pink-500 font-semibold rounded hover:bg-pink-100 transition">Get Personalized Recommendations</a>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section id="dashboard" class="py-24 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center mb-12">What product or service are you looking for?</h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Card -->
+        <div class="bg-white p-8 rounded shadow text-center">
+          <h3 class="text-lg font-semibold text-gray-500 mb-4">Medical Insurance</h3>
+          <p class="text-3xl font-bold text-gray-800">3</p>
+        </div>
+        <div class="bg-white p-8 rounded shadow text-center">
+          <h3 class="text-lg font-semibold text-gray-500 mb-4">Critical Illness Insurance</h3>
+          <p class="text-3xl font-bold text-gray-800">3</p>
+        </div>
+        <div class="bg-white p-8 rounded shadow text-center">
+          <h3 class="text-lg font-semibold text-gray-500 mb-4">Life Insurance</h3>
+          <p class="text-3xl font-bold text-gray-800">3</p>
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
+  </section>
 
-<!-- Main Content -->
-<main class="main-content">
-  @yield('content')
-</main>
+  <!-- CTA Section -->
+  <section class="py-24 bg-gradient-to-r from-pink-100 to-pink-200 text-center">
+    <h2 class="text-3xl font-bold mb-4">Do you still feel confused?</h2>
+    <p class="text-gray-600 mb-8">Get a quote now. We are ready to help you.</p>
+    <a href="#" class="px-6 py-3 bg-pink-500 text-white font-semibold rounded hover:bg-pink-600 transition">Get Quote</a>
+  </section>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
