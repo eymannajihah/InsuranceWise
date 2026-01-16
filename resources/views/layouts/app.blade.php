@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'InsuranceWise') }}</title>
 
@@ -57,6 +57,10 @@
             padding: 15px 35px;
             font-size: 16px;
             border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+        .hero-content .btn:hover {
+            background-color: #e65b50;
         }
 
         /* Category Cards */
@@ -70,11 +74,12 @@
             width: 320px;
             height: 220px;
             padding-top: 50px;
-            transition: transform 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             cursor: pointer;
         }
         .section-gray .card:hover {
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         .card .title {
             font-size: 42px;
@@ -119,21 +124,22 @@
 
 <!-- Bootstrap 5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Smooth scrolling buttons
-    document.addEventListener("DOMContentLoaded", () => {
-        const browseBtn = document.getElementById("browsePlansBtn");
-        if(browseBtn) browseBtn.addEventListener("click", e => {
-            e.preventDefault();
-            document.querySelector("#category-section").scrollIntoView({ behavior: 'smooth' });
-        });
 
-        const quoteBtn = document.getElementById("getQuoteBtn");
-        if(quoteBtn) quoteBtn.addEventListener("click", e => {
-            e.preventDefault();
-            document.querySelector("#get-quote-section").scrollIntoView({ behavior: 'smooth' });
-        });
+<!-- Optional: smooth scroll for sections -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const browseBtn = document.getElementById("browsePlansBtn");
+    if(browseBtn) browseBtn.addEventListener("click", e => {
+        e.preventDefault();
+        document.querySelector("#category-section").scrollIntoView({ behavior: 'smooth' });
     });
+
+    const quoteBtn = document.getElementById("getQuoteBtn");
+    if(quoteBtn) quoteBtn.addEventListener("click", e => {
+        e.preventDefault();
+        document.querySelector("#get-quote-section").scrollIntoView({ behavior: 'smooth' });
+    });
+});
 </script>
 </body>
 </html>
