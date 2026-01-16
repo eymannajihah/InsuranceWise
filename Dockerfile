@@ -1,5 +1,5 @@
-# Base image
-FROM php:8.2-fpm
+# Use PHP 8.2 with Apache
+FROM php:8.2-apache
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -13,27 +13,29 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql zip mbstring exif pcntl gd
 
+# Enable Apache rewrite
+RUN a2enmod rewrite
+
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- \
-    --install-dir=/usr/local/bin \
-    --filename=composer
-
-# Copy entire Laravel project FIRST (important!)
+# Copy project files
 COPY . .
 
-# Install PHP dependencies
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Cache Laravel config (safe after install)
-RUN php artisan config:clear && \
-    php artisan route:clear && \
-    php artisan view:clear
+# Set proper permissions
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Expose port (Render uses 10000)
-EXPOSE 10000
+# Clear caches
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:clear
 
-# Start Laravel
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=10000"]
+# Expose port 80
+EXPOSE 80
+
+# Apache will start automatically (no need for artisan serve)
+CMD ["apache2-foreground"]
