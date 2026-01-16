@@ -1,70 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
-
-<!-- Header Section -->
-<div class="section section-header hero-section" style="background-image: url('{{ secure_asset('image/dashboard.jpeg') }}');">
-    <div class="container">
-        <div class="content">
-            <h1 class="title-modern text-center">Welcome to InsuranceWise</h1>
-            <p class="text-center text-light">Your personalized insurance insight dashboard</p>
-            <div class="text-center">
-                <a href="{{ route('recommendationform') }}" class="btn btn-danger btn-lg">Get Personalized Recommendations</a>
-            </div>
-        </div>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome to InsuranceWise</h1>
+        <p>Your personalized insurance insight dashboard</p>
+        <a href="{{ route('recommendationform') }}" class="btn btn-lg">Get Personalized Recommendations</a>
     </div>
 </div>
 
-<!-- Insurance Categories -->
-<div id="category-section" class="section section-gray text-center">
+<!-- Categories -->
+<div id="category-section" class="section section-gray text-center py-5">
     <div class="container">
-        <h2 class="section-title">What product or service are you looking for?</h2>
-        <div class="row justify-content-center">
-
-            <div class="col-md-3">
-                <div class="card card-stats">
-                    <a href="{{ route('categories.view', ['category' => 'medical']) }}" class="stretched-link text-decoration-none text-dark">
+        <h2>What product or service are you looking for?</h2>
+        <div class="row">
+            @foreach(['medical' => 'Medical Insurance', 'critical' => 'Critical Illness Insurance', 'life' => 'Life Insurance'] as $key => $label)
+            <div class="col-md-4">
+                <div class="card card-stats shadow-sm">
+                    <a href="{{ route('categories.view', ['category' => $key]) }}" class="stretched-link text-decoration-none text-dark">
                         <div class="content text-center">
-                            <p class="category">Medical Insurance</p>
-                            <h3 class="title">{{ $planCounts['medical'] ?? 0 }}</h3>
+                            <p class="category">{{ $label }}</p>
+                            <h3 class="title">{{ $planCounts[$key] ?? 0 }}</h3>
                         </div>
                     </a>
                 </div>
             </div>
-
-            <div class="col-md-3">
-                <div class="card card-stats">
-                    <a href="{{ route('categories.view', ['category' => 'critical']) }}" class="stretched-link text-decoration-none text-dark">
-                        <div class="content text-center">
-                            <p class="category">Critical Illness Insurance</p>
-                            <h3 class="title">{{ $planCounts['critical'] ?? 0 }}</h3>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card card-stats">
-                    <a href="{{ route('categories.view', ['category' => 'life']) }}" class="stretched-link text-decoration-none text-dark">
-                        <div class="content text-center">
-                            <p class="category">Life Insurance</p>
-                            <h3 class="title">{{ $planCounts['life'] ?? 0 }}</h3>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
 </div>
 
 <!-- Get Quote Section -->
-<div id="get-quote-section" class="hero-section" style="background-image: url('{{ secure_asset('image/dashboard.jpeg') }}');">
+<div id="get-quote-section" class="hero-section my-5">
     <div class="hero-content">
         <h2>Do you still feel confused?</h2>
         <p>Get a quote now. We are ready to help you.</p>
         <a href="{{ url('/quote-request') }}" class="btn">Get Quote</a>
     </div>
 </div>
-
 @endsection
