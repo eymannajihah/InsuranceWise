@@ -3,20 +3,16 @@
 @section('content')
 
 <!-- Header Section -->
-<div class="section section-header">
-  <div class="parallax filter filter-color-black hero-section" style="background-image: url('{{ secure_asset('image/dashboard.jpeg') }}');">
+<div class="section section-header hero-section" style="background-image: url('{{ secure_asset('image/dashboard.jpeg') }}');">
     <div class="container">
-      <div class="content">
-        <h1 class="title-modern text-center">Welcome to InsuranceWise</h1>
-        <p class="text-center text-light">Your personalized insurance insight dashboard</p>
-        <div class="text-center">
-          <a href="{{ route('recommendationform') }}" class="btn btn-danger btn-lg">
-            Get Personalized Recommendations
-          </a>
+        <div class="content">
+            <h1 class="title-modern text-center">Welcome to InsuranceWise</h1>
+            <p class="text-center text-light">Your personalized insurance insight dashboard</p>
+            <div class="text-center">
+                <a href="{{ route('recommendationform') }}" class="btn btn-danger btn-lg">Get Personalized Recommendations</a>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Insurance Categories -->
@@ -65,9 +61,9 @@
 <!-- Get Quote Section -->
 <div id="get-quote-section" class="hero-section" style="background-image: url('{{ secure_asset('image/dashboard.jpeg') }}');">
     <div class="hero-content">
-      <h2>Do you still feel confused?</h2>
-      <p>Get a quote now. We are ready to help you.</p>
-      <a href="{{ url('/quote-request') }}" class="btn">Get Quote</a>
+        <h2>Do you still feel confused?</h2>
+        <p>Get a quote now. We are ready to help you.</p>
+        <a href="{{ url('/quote-request') }}" class="btn">Get Quote</a>
     </div>
 </div>
 
