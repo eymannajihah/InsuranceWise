@@ -1,60 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>InsuranceWise</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Gaia CSS -->
+  <link href="{{ secure_asset('gaia-assets/css/bootstrap.css') }}" rel="stylesheet" />
+  <link href="{{ secure_asset('gaia-assets/css/gaia.css') }}" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Cambo|Poppins:400,600" rel="stylesheet">
+  <link href="{{ secure_asset('gaia-assets/css/fonts/pe-icon-7-stroke.css') }}" rel="stylesheet">
+  <link href="{{ secure_asset('gaia-assets/css/fonts/font-awesome.css') }}" rel="stylesheet">
+
+  <style>
+    body { font-family: "Poppins", sans-serif; padding-top: 70px; }
+    .navbar { min-height: 60px; padding: 5px 0; background-color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .navbar-brand { font-size: 20px; padding: 10px 15px; }
+    .navbar-nav > li > a { padding: 15px 12px; font-size: 14px; cursor: pointer; }
+    .hero-section { background-size: cover; background-position: center; color: white; text-align: center; padding: 150px 20px; position: relative; }
+    .hero-section::before { content: ""; position: absolute; inset: 0; background-color: rgba(0,0,0,0.5); }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+    .hero-content .btn { background-color: #ff6f61; color: #fff; border: none; padding: 15px 35px; font-size: 16px; border-radius: 6px; }
+  </style>
 </head>
-<body class="font-sans bg-gray-50">
+<body>
 
-  <!-- Navbar -->
-  <nav class="flex justify-between items-center p-6 bg-white shadow-md">
-    <div class="text-2xl font-semibold text-gray-800">InsuranceWise</div>
-    <ul class="flex gap-6 text-gray-600">
-      <li><a href="#" class="hover:text-gray-900">Get Recommendation</a></li>
-      <li><a href="#" class="hover:text-gray-900">Browse Plan</a></li>
-      <li><a href="#" class="hover:text-gray-900">Get Quote</a></li>
-      <li><a href="#" class="hover:text-gray-900">Logout</a></li>
-    </ul>
-  </nav>
+@php
+  $user = Session::get('firebase_user');
+  $isAdmin = $user && ($user['role'] ?? '') === 'admin';
+@endphp
 
-  <!-- Hero Section -->
-  <section class="relative bg-gradient-to-r from-pink-100 to-pink-200 text-center py-32">
-    <h1 class="text-5xl font-bold text-gray-800 mb-4">Welcome to InsuranceWise</h1>
-    <p class="text-gray-600 uppercase tracking-wide mb-8">Your personalized insurance insight dashboard</p>
-    <a href="#dashboard" class="px-6 py-3 border border-pink-400 text-pink-500 font-semibold rounded hover:bg-pink-100 transition">Get Personalized Recommendations</a>
-  </section>
+<!-- NAVBAR -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
 
-  <!-- Dashboard Section -->
-  <section id="dashboard" class="py-24 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl font-bold text-center mb-12">What product or service are you looking for?</h2>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Card -->
-        <div class="bg-white p-8 rounded shadow text-center">
-          <h3 class="text-lg font-semibold text-gray-500 mb-4">Medical Insurance</h3>
-          <p class="text-3xl font-bold text-gray-800">3</p>
-        </div>
-        <div class="bg-white p-8 rounded shadow text-center">
-          <h3 class="text-lg font-semibold text-gray-500 mb-4">Critical Illness Insurance</h3>
-          <p class="text-3xl font-bold text-gray-800">3</p>
-        </div>
-        <div class="bg-white p-8 rounded shadow text-center">
-          <h3 class="text-lg font-semibold text-gray-500 mb-4">Life Insurance</h3>
-          <p class="text-3xl font-bold text-gray-800">3</p>
-        </div>
-      </div>
+    <!-- BRAND -->
+    <div class="navbar-header">
+      <a class="navbar-brand"
+         href="{{ $isAdmin ? route('admin.dashboard') : route('dashboard') }}">
+        InsuranceWise
+      </a>
     </div>
-  </section>
 
-  <!-- CTA Section -->
-  <section class="py-24 bg-gradient-to-r from-pink-100 to-pink-200 text-center">
-    <h2 class="text-3xl font-bold mb-4">Do you still feel confused?</h2>
-    <p class="text-gray-600 mb-8">Get a quote now. We are ready to help you.</p>
-    <a href="#" class="px-6 py-3 bg-pink-500 text-white font-semibold rounded hover:bg-pink-600 transition">Get Quote</a>
-  </section>
+    <!-- MENU -->
+    <ul class="nav navbar-nav navbar-right">
+
+      @if($isAdmin)
+        <!-- ADMIN NAV -->
+        <li><a href="{{ route('quote.assignment') }}">Quote Requests</a></li>
+        <li><a href="{{ route('admin.manage-plans') }}">Manage Plans</a></li>
+
+      @else
+        <!-- USER NAV -->
+        <li><a href="{{ route('recommendationform') }}">Get Recommendation</a></li>
+        <li><a href="{{ route('dashboard') }}#category-section">Browse Plan</a></li>
+        <li><a href="{{ url('/quote-request') }}">Get Quote</a></li>
+      @endif
+
+      <!-- LOGOUT -->
+      <li>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
+          @csrf
+        </form>
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          Logout
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE CONTENT -->
+<main class="main-content">
+  @yield('content')
+</main>
+
+<!-- Scripts -->
+<script src="{{ secure_asset('gaia-assets/js/jquery.min.js') }}"></script>
+<script src="{{ secure_asset('gaia-assets/js/bootstrap.js') }}"></script>
+<script src="{{ secure_asset('gaia-assets/js/gaia.js') }}"></script>
 
 </body>
 </html>
