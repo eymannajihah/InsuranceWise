@@ -8,7 +8,6 @@
   <!-- Gaia CSS -->
   <link href="{{ secure_asset('gaia-assets/css/bootstrap.css') }}" rel="stylesheet" />
   <link href="{{ secure_asset('gaia-assets/css/gaia.css') }}" rel="stylesheet" />
-  <link href="{{ secure_asset('gaia-assets/css/demo.css') }}" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Cambo|Poppins:400,600" rel="stylesheet">
   <link href="{{ secure_asset('gaia-assets/css/fonts/pe-icon-7-stroke.css') }}" rel="stylesheet">
   <link href="{{ secure_asset('gaia-assets/css/fonts/font-awesome.css') }}" rel="stylesheet">
@@ -45,6 +44,7 @@
 
     <!-- MENU -->
     <ul class="nav navbar-nav navbar-right">
+
       @if($isAdmin)
         <!-- ADMIN NAV -->
         <li><a href="{{ route('quote.assignment') }}">Quote Requests</a></li>
@@ -65,6 +65,7 @@
           Logout
         </a>
       </li>
+
     </ul>
   </div>
 </nav>
