@@ -6,11 +6,11 @@
   <title>InsuranceWise</title>
 
   <!-- Gaia CSS -->
-  <link href="{{ asset('gaia-assets/css/bootstrap.css') }}" rel="stylesheet" />
-  <link href="{{ asset('gaia-assets/css/gaia.css') }}" rel="stylesheet" />
+  <link href="{{ secure_asset('gaia-assets/css/bootstrap.css') }}" rel="stylesheet" />
+  <link href="{{ secure_asset('gaia-assets/css/gaia.css') }}" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Cambo|Poppins:400,600" rel="stylesheet">
-  <link href="{{ asset('gaia-assets/css/fonts/pe-icon-7-stroke.css') }}" rel="stylesheet">
-  <link href="{{ asset('gaia-assets/css/fonts/font-awesome.css') }}" rel="stylesheet">
+  <link href="{{ secure_asset('gaia-assets/css/fonts/pe-icon-7-stroke.css') }}" rel="stylesheet">
+  <link href="{{ secure_asset('gaia-assets/css/fonts/font-awesome.css') }}" rel="stylesheet">
 
   <style>
     body { font-family: "Poppins", sans-serif; padding-top: 70px; }
@@ -48,7 +48,7 @@
       @if($isAdmin)
         <!-- ADMIN NAV -->
          <li><a href="{{ route('quote.assignment') }}">Quote Requests</a></li>
-  <li><a href="{{ route('admin.manage-plans') }}">Manage Plans</a></li>
+         <li><a href="{{ route('admin.manage-plans') }}">Manage Plans</a></li>
 
       @else
         <!-- USER NAV -->
@@ -77,9 +77,9 @@
 </main>
 
 <!-- Scripts -->
-<script src="{{ asset('gaia-assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('gaia-assets/js/bootstrap.js') }}"></script>
-<script src="{{ asset('gaia-assets/js/gaia.js') }}"></script>
+<script src="{{ secure_asset('gaia-assets/js/jquery.min.js') }}"></script>
+<script src="{{ secure_asset('gaia-assets/js/bootstrap.js') }}"></script>
+<script src="{{ secure_asset('gaia-assets/js/gaia.js') }}"></script>
 
 </body>
 </html>
