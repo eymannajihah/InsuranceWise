@@ -1,7 +1,7 @@
 # Use PHP 8.2 with Apache
 FROM php:8.2-apache
 
-# Install system dependencies
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -34,8 +34,11 @@ RUN php artisan config:cache
 RUN php artisan route:cache
 RUN php artisan view:clear
 
+# Ensure Apache serves public/ folder
+RUN sed -i 's#/var/www/html#/var/www/html/public#g' /etc/apache2/sites-available/000-default.conf
+
 # Expose port 80
 EXPOSE 80
 
-# Start Apache (production)
+# Start Apache
 CMD ["apache2-foreground"]
